@@ -205,6 +205,9 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Dto\CategoriesDto.cs" />
+    <Compile Include="Dto\ProductsDto.cs" />
+    <Compile Include="Dto\SuppliersDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

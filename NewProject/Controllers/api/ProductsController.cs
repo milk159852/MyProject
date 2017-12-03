@@ -9,6 +9,8 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using NewProject.Models;
+using AutoMapper;
+using NewProject.Dto;
 
 namespace NewProject.Controllers.api
 {
@@ -28,10 +30,9 @@ namespace NewProject.Controllers.api
         //}
 
         // GET: api/Products
-        public IEnumerable<Products> GetProducts()
+        public IEnumerable<ProductsDto> GetProducts()
         {
-            var result = _context.Products.ToList();
-            return result;
+            return _context.Products.ToList().Select(Mapper.Map<Products,ProductsDto>);
         }
 
         // GET: api/Products/5
@@ -42,28 +43,31 @@ namespace NewProject.Controllers.api
             if (result == null)
                 return NotFound();
 
-            return Ok();
+            return Ok(Mapper.Map<Products,ProductsDto>(result));
         }
 
 
         // POST: api/Products
         [HttpPost]
-        public IHttpActionResult CreateProducts(Products products)
+        public IHttpActionResult CreateProducts(ProductsDto products)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
 
-            _context.Products.Add(products);
+            var result = Mapper.Map<ProductsDto, Products>(products);
+            _context.Products.Add(result);
             _context.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = products.ProductID }, products);
+            products.ProductID = products.ProductID;
+
+            return Created(new Uri(Request.RequestUri+"/"+products.ProductID), products);
         }
 
         // PUT: api/Products/5
         [HttpPut]
-        public IHttpActionResult UpdateProducts(int id, Products products)
+        public IHttpActionResult UpdateProducts(int id, ProductsDto products)
         {
             if (!ModelState.IsValid)
             {
@@ -74,7 +78,7 @@ namespace NewProject.Controllers.api
 
             if (result == null)
                 return NotFound();
-
+            Mapper.Map<ProductsDto, Products>(products, result);
             //result.ProductName = products.ProductName;
             //update parameter
 

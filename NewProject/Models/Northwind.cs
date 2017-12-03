@@ -10,6 +10,7 @@ namespace NewProject.Models
         public Northwind()
             : base("name=Northwind")
         {
+            this.Configuration.LazyLoadingEnabled = false;
         }
 
         public virtual DbSet<Categories> Categories { get; set; }

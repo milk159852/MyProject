@@ -25,7 +25,10 @@ namespace NewProject.Controllers
         // GET: Product
         public ActionResult Index()
         {
-            var result = _context.Products.ToList();
+            var result = _context.Products
+                .Include(c => c.Categories)
+                .Include(c => c.Suppliers)
+                .ToList();
             return View(result);
         }
 

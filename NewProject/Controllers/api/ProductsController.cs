@@ -92,7 +92,9 @@ namespace NewProject.Controllers.api
         [HttpDelete]
         public IHttpActionResult DeleteProducts(int id)
         {
-            var result = _context.Products.SingleOrDefault(c => c.ProductID == id);
+            var result = _context.Products.SingleOrDefault(c => c.ProductID == id );
+           
+
             if (result == null)
             {
                 return NotFound();

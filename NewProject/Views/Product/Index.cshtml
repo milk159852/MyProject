@@ -5,7 +5,7 @@
 }
 
 <h2>Index</h2>
-<table class="table table-bordered table-hover">
+<table id="products" class="table table-bordered table-hover">
     <thead>
         <tr>
             <th>ProductName</th>
@@ -14,6 +14,7 @@
             <th>QuantityPerUnit</th>
             <th>UnitPrice</th>
             <th>UnitsInStock</th>
+            <th></th>
         </tr>
     </thead>
     @foreach (var product in Model)
@@ -27,12 +28,31 @@
                 <td>@product.QuantityPerUnit</td>
                 <td>@product.UnitPrice</td>
                 <td>@product.UnitsInStock</td>
+                <td>
+                    <button data-product-id="@product.ProductID" class="btn-link js-delete">Delete</button>
+                </td>
             </tr>
         </tbody>
     }
 </table>
 
-@section Scripts
+@section scripts
 {
+    <script>
+        $(document).ready(function () {
+            $("#products .js-delete").on("click", function () {
+                if (confirm("Are you sure to delete it?")) {
+                    $.ajax({
+                        url: "/api/products/" + $(this).attr("data-product-id"),
+                        method: "DELETE",
+                        success: function(){
+                            console.log("success");
+                            $(this).parents("tr").remove();
+                        }
+                    });
+                }
+            });
 
+        });
+    </script>
 }

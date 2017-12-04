@@ -10,13 +10,14 @@
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-    
+    @Html.HiddenFor(m => m.Product.ProductID)
+
     <div class="form-horizontal">
         <div>
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         </div>
         <div class="form-group">
-            @Html.LabelFor(m => m.Product.ProductName))
+            @Html.LabelFor(m => m.Product.ProductName)
             @Html.TextBoxFor(m => m.Product.ProductName, new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.Product.ProductName)
         </div>

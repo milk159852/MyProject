@@ -15,8 +15,10 @@ namespace NewProject.Models
         [StringLength(40)]
         public string ProductName { get; set; }
 
+        [Display(Name ="Supplier")]
         public int? SupplierID { get; set; }
 
+        [Display(Name = "Category")]
         public int? CategoryID { get; set; }
 
         [StringLength(20)]

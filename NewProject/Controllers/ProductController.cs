@@ -1,4 +1,5 @@
 ﻿using NewProject.Models;
+using NewProject.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -39,6 +40,19 @@ namespace NewProject.Controllers
                 .Include(c => c.Suppliers)
                 .SingleOrDefault(c => c.ProductID == id);
             return View(result);
+        }
+
+        public ActionResult NewProduct()
+        {
+            var categories = _context.Categories.ToList();
+            var suppliers = _context.Suppliers.ToList();
+
+            var result = new ProductViewModel
+            {
+                Categories = categories,
+                Suppliers = suppliers
+            };
+            return View("NewProduct", result);
         }
     }
 }

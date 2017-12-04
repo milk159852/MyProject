@@ -1,0 +1,87 @@
+﻿@model NewProject.ViewModel.ProductViewModel
+
+@{
+    ViewBag.Title = "NewProduct";
+}
+
+<h2>NewProduct</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Product.ProductName))
+            @Html.TextBoxFor(m => m.Product.ProductName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Product.ProductName)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Product.SupplierID)
+            @Html.DropDownListFor(m => m.Product.SupplierID, new SelectList(Model.Suppliers, "SupplierID", "CompanyName"),new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Product.SupplierID)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Product.CategoryID)
+            @Html.DropDownListFor(m => m.Product.CategoryID, new SelectList(Model.Categories, "CategoryID", "CategoryName"), new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Product.CategoryID)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Product.QuantityPerUnit)
+            @Html.TextBoxFor(m => m.Product.QuantityPerUnit, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Product.QuantityPerUnit)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Product.UnitPrice)
+            @Html.TextBoxFor(m => m.Product.UnitPrice, new { @class = "form-control" } )
+            @Html.ValidationMessageFor(m => m.Product.UnitPrice)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Product.UnitsInStock)
+            @Html.TextBoxFor(m => m.Product.UnitsInStock, new { @class = "form-control" } )
+            @Html.ValidationMessageFor(m => m.Product.UnitsInStock)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Product.UnitsOnOrder)
+            @Html.TextBoxFor(m => m.Product.UnitsOnOrder, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Product.UnitsOnOrder)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Product.ReorderLevel)
+            @Html.TextBoxFor(m => m.Product.ReorderLevel,  new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Product.ReorderLevel)
+            
+        </div>
+
+        <div class="checkbox">
+            <label>
+                @Html.CheckBoxFor(m => m.Product.Discontinued) Continute or not?
+            </label>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

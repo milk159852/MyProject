@@ -49,10 +49,52 @@ namespace NewProject.Controllers
 
             var result = new ProductViewModel
             {
+                Product = new Products(),
                 Categories = categories,
                 Suppliers = suppliers
             };
             return View("NewProduct", result);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Save(Products product)
+        {
+            if (!ModelState.IsValid)
+            {
+                var result = new ProductViewModel
+                {   
+                    Product = product,
+                    Categories = _context.Categories.ToList(),
+                    Suppliers = _context.Suppliers.ToList()
+                };
+
+                return View("NewProduct", result);
+            }
+
+            if (product.ProductID == 0)
+                _context.Products.Add(product);
+
+            else
+            {
+                var result = _context.Products
+                    .SingleOrDefault(c => c.ProductID == product.ProductID);
+
+                result.ProductName = product.ProductName;
+                result.SupplierID = product.SupplierID;
+                result.CategoryID = product.CategoryID;
+                result.QuantityPerUnit = product.QuantityPerUnit;
+                result.UnitPrice = product.UnitPrice;
+                result.UnitsInStock = product.UnitsInStock;
+                result.UnitsOnOrder = product.UnitsOnOrder;
+                result.ReorderLevel = product.ReorderLevel;
+                result.Discontinued = product.Discontinued;
+
+            }
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", product);
         }
     }
 }

@@ -33,15 +33,16 @@
                 <td>@product.UnitsInStock</td>
                 <td>
                     @Html.ActionLink("Detail", "Detail", "Product", new { id = product.ProductID }, null) &nbsp
-                    @Html.ActionLink("Edit", "Edit", "Product", new { id = product.ProductID}, null)
-                    <button data-product-id="@product.ProductID" class="btn-link js-delete">Delete</button>
+                    @Html.ActionLink("Edit", "Edit", "Product", new { id = product.ProductID}, null) &nbsp
+                    @Html.ActionLink("Delete", "Delete", "Product", new { id = product.ProductID }, null)
+                    @*<button data-product-id="@product.ProductID" class="btn-link js-delete">Delete</button>*@
                 </td>
             </tr>
         </tbody>
     }
 </table>
 
-@section scripts
+@*@section scripts
 {
     <script>
         $(document).ready(function () {
@@ -60,4 +61,4 @@
 
         });
     </script>
-}
+}*@

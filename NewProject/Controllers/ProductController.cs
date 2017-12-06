@@ -113,5 +113,18 @@ namespace NewProject.Controllers
 
             return View("NewProduct", viewModel);
         }
+
+        public ActionResult Delete(int id)
+        {
+            var result = _context.Products.SingleOrDefault(c => c.ProductID == id);
+
+            _context.Products.Remove(result);
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
+
+            //return View();
+        }
     }
 }

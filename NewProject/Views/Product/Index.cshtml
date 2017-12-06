@@ -5,6 +5,9 @@
 }
 
 <h2>Index</h2>
+
+@Html.ActionLink("Add New Product", "NewProduct", "Product", null, new {@class = "btn btn-primary" })
+
 <table id="products" class="table table-bordered table-hover">
     <thead>
         <tr>
@@ -29,6 +32,8 @@
                 <td>@product.UnitPrice</td>
                 <td>@product.UnitsInStock</td>
                 <td>
+                    @Html.ActionLink("Detail", "Detail", "Product", new { id = product.ProductID }, null) &nbsp
+                    @Html.ActionLink("Edit", "Edit", "Product", new { id = product.ProductID}, null)
                     <button data-product-id="@product.ProductID" class="btn-link js-delete">Delete</button>
                 </td>
             </tr>

@@ -47,13 +47,13 @@ namespace NewProject.Controllers
             var categories = _context.Categories.ToList();
             var suppliers = _context.Suppliers.ToList();
 
-            var result = new ProductViewModel
+            var viewModel = new ProductViewModel
             {
                 Product = new Products(),
                 Categories = categories,
                 Suppliers = suppliers
             };
-            return View("NewProduct", result);
+            return View("NewProduct", viewModel);
         }
 
         [HttpPost]
@@ -62,14 +62,14 @@ namespace NewProject.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var result = new ProductViewModel
+                var viewModel = new ProductViewModel
                 {   
                     Product = product,
                     Categories = _context.Categories.ToList(),
                     Suppliers = _context.Suppliers.ToList()
                 };
 
-                return View("NewProduct", result);
+                return View("NewProduct", viewModel);
             }
 
             if (product.ProductID == 0)
@@ -95,6 +95,23 @@ namespace NewProject.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("Index", product);
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var result = _context.Products.SingleOrDefault(c => c.ProductID == id);
+
+            if (result == null)
+                return HttpNotFound();
+
+            var viewModel = new ProductViewModel
+            {
+                Product = result,
+                Categories = _context.Categories.ToList(),
+                Suppliers = _context.Suppliers.ToList()
+            };
+
+            return View("NewProduct", viewModel);
         }
     }
 }

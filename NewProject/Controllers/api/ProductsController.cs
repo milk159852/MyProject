@@ -21,13 +21,12 @@ namespace NewProject.Controllers.api
         public ProductsController()
         {
             _context = new Northwind();
-            _context.Configuration.ProxyCreationEnabled = false;
         }
 
-        //protected override void Dispose(bool disposing)
-        //{
-        //    _context.Dispose();
-        //}
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        }
 
         // GET: api/Products
         public IEnumerable<ProductsDto> GetProducts()
@@ -106,6 +105,14 @@ namespace NewProject.Controllers.api
             return Ok();
         }
 
+        [Route("api/Beverages/")]
+        public IQueryable<ProductsDto> GetBeverages()
+        {
+            return _context.Products
+            .Where(c => c.CategoryID == 1)
+            .Select(Mapper.Map<Products, ProductsDto>).AsQueryable();
+
+        }
 
     }
 }

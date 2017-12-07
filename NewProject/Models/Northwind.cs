@@ -11,6 +11,7 @@ namespace NewProject.Models
             : base("name=Northwind")
         {
             this.Configuration.LazyLoadingEnabled = false;
+            this.Configuration.ProxyCreationEnabled = false;
         }
 
         public virtual DbSet<Categories> Categories { get; set; }

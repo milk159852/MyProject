@@ -1,0 +1,45 @@
+﻿
+@{
+	ViewBag.Title = "GetBeverages";
+}
+
+<h2>GetBeverages</h2>
+
+<table  class="table table-bordered table-hover">
+	<thead>
+		<tr>
+			<th>ProductName</th>
+			<th>QuantityPerUnit</th>
+            <th>UnitPrice</th>
+            <th>UnitsInStock</th>
+		</tr>
+	</thead>
+	<tbody id="Beverages">
+        
+	</tbody>
+</table>
+
+@Html.ActionLink("Back to List", "Index")
+
+@section scripts
+{
+	<script>
+		$.ajax({
+			url: "/api/Beverages/",
+			method: "GET",
+			success:
+			function(data) {
+				console.log("SUCCESS!!!");
+					for (i=0; data.length>i; i++) {
+						var str;
+						str= '<td>'+data[i].productName +'</td>'+
+							 '<td>'+data[i].quantityPerUnit +'</td>'+
+                             '<td>'+data[i].unitPrice +'</td>'+
+                             '<td>'+data[i].unitsInStock +'</td>';
+						$("#Beverages").append("<tr>"+str+"</tr>");
+					}
+			}
+		});
+
+	</script>
+}

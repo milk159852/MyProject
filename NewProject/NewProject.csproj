@@ -288,6 +288,7 @@
     <Content Include="Views\Product\NewProduct.cshtml" />
     <Content Include="Views\Product\IndexUseApi.cshtml" />
     <Content Include="Views\Shared\_navbar.cshtml" />
+    <Content Include="Views\Product\GetBeverages.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -126,5 +126,11 @@ namespace NewProject.Controllers
 
             //return View();
         }
+
+        public ActionResult GetBeverages()
+        {
+
+            return View();
+        }
     }
 }

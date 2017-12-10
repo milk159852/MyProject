@@ -1,52 +1,72 @@
-﻿@model IEnumerable<NewProject.Models.Products>
-
+﻿
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Products</h2>
 
-@Html.ActionLink("Add New Product", "NewProduct", "Product", null, new { @class = "btn btn-primary" })
+<div>
+    @Html.ActionLink("Beverages", "GetBeverages")
+</div>
 
 <table id="products" class="table table-bordered table-hover">
     <thead>
         <tr>
             <th>ProductName</th>
-            <th>Category</th>
-            <th>Suppliers</th>
             <th>QuantityPerUnit</th>
             <th>UnitPrice</th>
             <th>UnitsInStock</th>
             <th></th>
         </tr>
     </thead>
-    @foreach (var product in Model)
-    {
 
-        <tbody>
-            <tr>
-                <td>@product.ProductName</td>
-                <td>@product.Categories.CategoryName</td>
-                <td>@product.Suppliers.CompanyName</td>
-                <td>@product.QuantityPerUnit</td>
-                <td>@product.UnitPrice</td>
-                <td>@product.UnitsInStock</td>
+
+        <tbody id="Products">
+            @*<tr>
+                <td>ProductName</td>
+                <td>Categories.CategoryName</td>
+                <td>Suppliers.CompanyName</td>
+                <td>QuantityPerUnit</td>
+                <td>UnitPrice</td>
+                <td>UnitsInStock</td>
                 <td>
                     @Html.ActionLink("Detail", "Detail", "Product", new { id = product.ProductID }, null) &nbsp
                     @Html.ActionLink("Edit", "Edit", "Product", new { id = product.ProductID }, null) &nbsp
                     <button data-product-id="@product.ProductID" class="btn-link js-delete">Delete</button>
                 </td>
-            </tr>
+            </tr>*@
         </tbody>
-    }
+    
 </table>
 
 
 @section scripts
-    {
-        <script>
+{
+  <script>
+
+     $.ajax({
+			url: "/api/Products/",
+			method: "GET",
+			success:
+			function(data) {
+				console.log("SUCCESS!!!");
+					for (i=0; data.length>i; i++) {
+						var str;
+						str= '<td>'+data[i].productName +'</td>'+
+							 '<td>'+data[i].quantityPerUnit +'</td>'+
+                             '<td>'+data[i].unitPrice +'</td>'+
+                             '<td>'+data[i].unitsInStock +'</td>'+
+                             '<td>'+
+                                '<button data-product-id=i class="btn-link js-delete">' + "Delete"+ '</button>'
+                             +'</td>';
+						$("#Products").append("<tr>"+str+"</tr>");
+					}
+			}
+		});
+
+
             $(document).ready(function () {
-                $("#products .js-delete").on("click", function () {
+                $("#Products .js-delete").on("click", function () {
                     if (confirm("Are you sure to delete it?")) {
                         $.ajax({
                             url: "/api/products/" + $(this).attr("data-product-id"),
@@ -60,5 +80,5 @@
                 });
 
             });
-        </script>
-    }
+  </script>
+}
